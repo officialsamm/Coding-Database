@@ -1,0 +1,247 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: 'CustomAndroid';
+  src: url('../fonts/CustomAndroid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Not Source Sans Pro';
+  src: url('../fonts/SourceSansPro-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Not Source Sans Pro';
+  src: url('../fonts/SourceSansPro-Bold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+
+$stickcolor: unquote('rgb(248, 255, 255) 0%, rgb(204, 204, 204) 59%, rgb(155, 176, 181) 100%');
+$basefont: 'Not Source Sans Pro', Calibri, Arial, serif;
+$font: 'CustomAndroid', 'Roboto', Arial, Calibri, serif;
+$full: 100%;
+
+// Lollipop Colors
+$purple:              #9C28B1;
+$brown:               #795547;
+$yellow:              #FAE636;
+$pink:                #F06292;
+$orange:              #FF9801;
+$lightgreen:          #C4CC45;
+
+// Circles
+$purple-circle:       #A235B6;
+$brown-circle:        #826054;
+$yellow-circle:       #FDEE3E;
+$pink-circle:         #F96B9B;
+$orange-circle:       #FFA316;
+$lightgreen-circle:   #CBD34C;
+
+@mixin stick-background() {
+  background: -webkit-linear-gradient(left, $stickcolor);
+  background: -o-linear-gradient(left, $stickcolor);
+  background: -ms-linear-gradient(left, $stickcolor);
+  background: -moz-linear-gradient(left, $stickcolor);
+  background: linear-gradient(to right, $stickcolor);
+}
+
+@mixin browser-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -moz-#{$property}:    #{$value};
+  -ms-#{$property}:     #{$value};
+  -o-#{$property}:      #{$value};
+  #{$property}:         #{$value};
+}
+
+* {
+  @include browser-prefix(box-sizing, border-box);
+  @include browser-prefix(user-select, 'none');
+  &:before,
+  &:after {
+    @include browser-prefix(box-sizing, border-box);
+  }
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: $full;
+  -ms-text-size-adjust: $full;
+  font-family: $basefont;
+  overflow: hidden;
+  font-size: $full;
+  height: $full;
+  width: $full;
+  clear: both;
+  color: #fff;
+}
+
+body {
+  background: url(../image.png) #898989 repeat;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0 auto;
+  padding: 0;
+}
+
+
+.demo {
+  position: relative;
+  header {
+    @include browser-prefix(transform, 'translate(-50%)');
+    position: absolute;
+    width: $full;
+    top: 100px;
+    left: 50%;
+    h1 {
+      position: relative;
+      margin-bottom: 0;
+    }
+    p {
+      margin-top: 0;
+      color: #eee;
+      font-style: italic;
+    }
+  }
+}
+
+.figure {
+  @include browser-prefix(transform, 'translate(-50%, 56%)');
+  position: absolute;
+  width: 260px;
+  left: 50%;
+  top: 50%;
+  &[data-lollipop="false"] {
+    #sweet {
+      @include browser-prefix(transform, 'scale(.7)');
+    }
+    .stick,
+    .text {
+      opacity: 0;
+    }
+  }
+  &[data-lollipop="true"] {
+    #sweet {
+      @include browser-prefix(transform, 'scale(1.15)');
+    }
+    .stick,
+    .text {
+      opacity: 1;
+    }
+  }
+  #sweet {
+    @include browser-prefix(transition, 'background-color .1s linear, transform .3s ease');
+    @include browser-prefix(box-shadow, '0px 0px 17px rgba(0, 0, 0, .4)');
+    @include browser-prefix(border-radius, $full);
+    text-align: center;
+    position: relative;
+    padding: 0 10px;
+    cursor: pointer;
+    margin: 0 auto;
+    height: 180px;
+    width: 186px;
+    .circle {
+      @include browser-prefix(transition, 'background-color .1s linear');
+      @include browser-prefix(border-radius, $full);
+      position: absolute;
+      height: 85px;
+      width: 85px;
+      left: 28px;
+      top: 23px;
+    }
+    .text {
+      @include browser-prefix(transition, 'opacity .2s ease .1s');
+    }
+
+    &.purple {
+      background-color: $purple;
+      .circle {
+        background-color: $purple-circle;
+      }
+    }
+
+    &.brown {
+      background-color: $brown;
+      .circle {
+        background-color: $brown-circle;
+      }
+    }
+
+    &.yellow {
+      background-color: $yellow;
+      .circle {
+        background-color: $yellow-circle;
+      }
+    }
+
+    &.pink {
+      background-color: $pink;
+      .circle {
+        background-color: $pink-circle;
+      }
+    }
+
+    &.orange {
+      background-color: $orange;
+      .circle {
+        background-color: $orange-circle;
+      }
+    }
+
+    &.lightgreen {
+      background-color: $lightgreen;
+      .circle {
+        background-color: $lightgreen-circle;
+      }
+    }
+
+    .text {
+      @include browser-prefix(transform, 'translate(-50%, -50%)');
+      letter-spacing: .05em;
+      font-family: $font;
+      position: absolute;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2.3em;
+      left: 50%;
+      top: 50%;
+    }
+  }
+
+  .stick {
+    @include browser-prefix(box-shadow, '0px 0px 17px rgba(0, 0, 0, .3)');
+    @include browser-prefix(transition, 'opacity .2s ease .1s');
+    @include stick-background;
+    margin: -5px auto 0;
+    position: relative;
+    height: 250px;
+    z-index: -1;
+    width: 23px;
+  }
+}
+
+[data-signature] {
+  position: relative;
+  margin-right: 50px;
+  font-style: italic;
+  float: right;
+  color: #eee;
+  top: 37em;
+  a {
+    border-bottom: 1px dotted #eee;
+    text-decoration: none;
+    color: #eee;
+  }
+  svg {
+    vertical-align: middle;
+    height: 14px;
+    width: 14px;
+    fill: #eee;
+  }
+}
